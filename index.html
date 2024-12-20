@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliver Beatty</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 3%;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .typeboi {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 0.5em 0;
+        }
+        p {
+            margin: 0.2em 0 1em 0;
+        }
+        a {
+            text-decoration: none;
+            color: #f79e0f;
+        }
+        .purple {color: #770ff7;}
+        a:hover {
+            text-decoration: underline;
+        }
+        .typewriter {
+            font-size: 1.2em;
+            max-width: auto;
+            text-align: center;
+            border-right: 2px solid #333;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <p>oliver beatty</p>
+    <p>writer. brooklyn. originally from kc.</p>
+    <div>
+        <a href="work.html">Work</a>
+        <a href="cv.html" class="purple">About</a>
+    </div>
+    <div class="typeboi">
+    <div class="typewriter" id="typewriter"></div>
+</div>
+    <script>
+        const texts = [
+            `So the morning comes, and the students all begin to gather around the field because they’ve seen the ramp, and they’ve seen this guy wearing a ridiculous outfit,`,
+            `And now Jane is in her first year of college but since she was elected Homecoming queen last year (the student population agreed it was only fair after the tragedy)`,
+            "They cut the ice / three men with chainsaws / the shape of a cross / a hut close by / with an electric heater.",
+            "When getting “chewed up and spit out” is a cliché of the movie biz, should we be surprised to see it on screen?"
+        ];
+        const typewriterElement = document.getElementById('typewriter');
+        let index = 0;
+        let textIndex = 0;
+        let direction = 1; // 1 for typing, -1 for deleting
+        let pause = false;
+
+        function typeEffect() {
+            if (!pause) {
+                const currentText = texts[textIndex];
+                if (index < currentText.length && direction === 1) {
+                    typewriterElement.textContent += currentText[index];
+                    index++;
+                } else if (index > 0 && direction === -1) {
+                    typewriterElement.textContent = typewriterElement.textContent.slice(0, -1);
+                    index--;
+                } else {
+                    pause = true;
+                    setTimeout(() => {
+                        if (direction === -1) {
+                            // Switch to the next text after deleting
+                            textIndex = (textIndex + 1) % texts.length;
+                        }
+                        direction *= -1; // Reverse direction
+                        pause = false;
+                    }, 15); // Pause before reversing
+                }
+            }
+            setTimeout(typeEffect, direction === 1 ? 50 : 30); // Typing speed
+        }
+
+        typeEffect();
+    </script>
+</body>
+</html>
